@@ -6,7 +6,6 @@
 ![Platform](https://img.shields.io/badge/Platform-AWS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white)
 ![Language](https://img.shields.io/badge/Language-Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![Focus](https://img.shields.io/badge/Focus-Incident%20Response-red?style=for-the-badge)
-![AI](https://img.shields.io/badge/Built%20With-Claude%20AI-blueviolet?style=for-the-badge)
 
 ---
 
