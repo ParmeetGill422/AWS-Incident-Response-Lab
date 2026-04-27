@@ -1,2 +1,222 @@
-# AWS-Incident-Response-Lab
-Description: Hands-on AWS security incident response simulation covering CloudWatch alarm triage, unauthorized access investigation with CloudTrail forensics, and S3 public exposure remediation — including a custom Python forensics tool for automated breach analysis.
+# 🛡️ AWS Incident Response Lab
+
+> **End-to-end AWS security incident response simulation** covering CloudWatch alarm triage, unauthorized access investigation with CloudTrail forensics, and S3 public exposure remediation — including a custom Python forensics tool for automated breach analysis.
+
+![Status](https://img.shields.io/badge/Status-Complete-brightgreen?style=for-the-badge)
+![Platform](https://img.shields.io/badge/Platform-AWS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white)
+![Language](https://img.shields.io/badge/Language-Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Focus](https://img.shields.io/badge/Focus-Incident%20Response-red?style=for-the-badge)
+![AI](https://img.shields.io/badge/Built%20With-Claude%20AI-blueviolet?style=for-the-badge)
+
+---
+
+## 📌 Project Overview
+
+This project simulates **real-world AWS security incidents** that escalation engineers respond to daily. Three full incident scenarios were built from the ground up, each followed through the complete incident response lifecycle: **detect → investigate → remediate → prevent**.
+
+The project also includes a custom **Python forensics tool** that automatically parses S3 access logs and generates structured incident reports — the same kind of tooling used by Security Operations Centers to triage breaches at scale.
+
+This type of incident handling is performed daily by **AWS Escalation Engineers (ES2), Security Operations teams, and Incident Response analysts** at companies like Amazon, Capital One, and every major cloud-first organization.
+
+---
+
+## 🛠️ Technologies Used
+
+| Service / Tool | Purpose |
+|---|---|
+| Amazon EC2 | Simulated production server |
+| Amazon CloudWatch | Monitoring, alarms, and metric dashboards |
+| AWS CloudTrail | API call auditing and forensic investigation |
+| AWS IAM | Identity and access management |
+| Amazon S3 | Object storage and bucket policies |
+| AWS CloudShell | Browser-based AWS CLI |
+| Python 3 | Custom forensics tooling |
+| S3 Server Access Logging | Forensic data source for breach analysis |
+
+---
+
+## 🚨 Incident Scenarios
+
+### Incident 1 — CloudWatch Alarm Triage (High CPU)
+
+**Scenario:** A CloudWatch alarm fires indicating CPU utilization on `prod-web-server` exceeded the 40% threshold. As the on-call engineer, I investigated, documented the timeline, and resolved the incident.
+
+**Severity:** P2 Performance Incident
+
+**Response Actions:**
+- Configured CloudWatch alarm `HighCPU-prod-web-server` with SNS notification
+- Triggered controlled CPU spike using stress testing on EC2 instance
+- Investigated CPU, network, and disk metrics across the EC2 Monitoring tab
+- Documented incident timeline from detection to resolution
+- Verified alarm returned to OK state after CPU normalized
+
+**Skills Demonstrated:** Monitoring, alerting, metric analysis, incident documentation
+
+---
+
+### Incident 2 — Unauthorized Access Investigation
+
+**Scenario:** A user account (`temp-contractor`) attempted multiple unauthorized API calls across EC2, IAM, and CloudTrail services. I investigated using CloudTrail forensics, identified the source, and locked the account down.
+
+**Severity:** P1 Security Incident
+
+**Response Actions:**
+- Created limited-permission IAM user with only S3 ReadOnly access
+- Simulated unauthorized API attempts via AWS CloudShell
+- Investigated denied calls in CloudTrail Event History
+- Extracted forensic data: source IP, timestamps, error codes, request IDs
+- Deactivated the user's access key as immediate containment
+- Applied an explicit `EmergencyLockout` deny policy as defense in depth
+
+**Skills Demonstrated:** CloudTrail forensics, IAM security, containment procedures, defense in depth
+
+---
+
+### Incident 3 — S3 Public Exposure Breach (Capital One Pattern)
+
+**Scenario:** An S3 bucket containing sensitive customer data (`customer-database.csv`, `employee-salaries.csv`, `internal-passwords.txt`) was misconfigured to allow public internet access — replicating the exact breach pattern that affected Capital One. I detected the exposure, investigated the impact, and fully remediated the bucket.
+
+**Severity:** P0 Critical Security Incident
+
+**Response Actions:**
+- Created S3 bucket with sensitive-looking test data
+- Enabled S3 server access logging for forensic capability
+- Configured a public bucket policy granting `s3:GetObject` to `Principal: "*"`
+- **Demonstrated active exposure** — accessed files via incognito browser with no AWS credentials
+- Investigated `PutBucketPolicy` event in CloudTrail to identify when and how the change occurred
+- Analyzed S3 access logs to identify all unauthorized access attempts
+- Removed public bucket policy
+- Re-enabled `Block Public Access` at both bucket and account levels
+- Verified remediation by confirming `AccessDenied` response on the previously exposed URL
+
+**Skills Demonstrated:** S3 security, bucket policies, breach forensics, data exposure analysis, account-level preventive controls
+
+---
+
+## 🐍 Custom Python Forensics Tool
+
+A custom Python script (`s3_forensics.py`) was built to automate the analysis of S3 access logs after the breach. The tool:
+
+- Parses raw S3 access logs from any bucket
+- Identifies unauthorized GET requests
+- Extracts source IPs, timestamps, request IDs, and accessed file names
+- Calculates total bytes exfiltrated and number of files exposed
+- Outputs a structured JSON incident report ready for SOC handoff
+
+This demonstrates the ability to write **operational tooling** — a key skill for ES2 and Cloud Security Engineering roles where engineers automate repeatable investigation workflows.
+
+---
+
+## 📸 Screenshots
+
+### Incident 1 — CloudWatch Alarm Triage
+
+**Alarm configured in OK state**
+![CloudWatch Alarm OK](screenshots/01-cloudwatch-alarm-ok.png)
+
+**Alarm in In-Alarm state during CPU spike**
+![CloudWatch Alarm Triggered](screenshots/02-cloudwatch-alarm-triggered.png)
+
+**CPU spike visible on metrics graph**
+![CloudWatch Metrics Spike](screenshots/03-cloudwatch-metrics-spike.png)
+
+**EC2 Monitoring tab showing all metrics during incident**
+![EC2 Monitoring](screenshots/04-ec2-monitoring.png)
+
+**Alarm returned to OK after resolution**
+![CloudWatch Alarm Resolved](screenshots/05-cloudwatch-alarm-resolved.png)
+
+---
+
+### Incident 2 — Unauthorized Access Investigation
+
+**Multiple Access Denied errors from temp-contractor in CloudShell**
+![CloudShell Access Denied](screenshots/06-cloudshell-access-denied.png)
+
+**CloudTrail event history showing all denied API calls**
+![CloudTrail Event History](screenshots/07-cloudtrail-event-history.png)
+
+**CloudTrail event detail with source IP and error code**
+![CloudTrail Event Detail](screenshots/08-cloudtrail-event-detail.png)
+
+**Access key deactivated as containment action**
+![Access Key Deactivated](screenshots/09-access-key-deactivated.png)
+
+**Account locked with EmergencyLockout policy applied**
+![Emergency Lockout Applied](screenshots/10-emergency-lockout-applied.png)
+
+---
+
+### Incident 3 — S3 Public Exposure Breach
+
+**Bucket created with Block Public Access disabled (vulnerability introduced)**
+![S3 Block Public Access Disabled](screenshots/11-s3-block-public-access-disabled.png)
+
+**Sensitive files uploaded to bucket**
+![S3 Sensitive Files](screenshots/12-s3-sensitive-files.png)
+
+**Bucket showing "Publicly accessible" badge — the breach is live**
+![S3 Public Badge](screenshots/13-s3-publicly-accessible.png)
+
+**File accessed publicly via incognito browser with no credentials**
+![Public File Access](screenshots/14-public-file-access.png)
+
+**CloudTrail PutBucketPolicy event showing who made the change**
+![CloudTrail PutBucketPolicy](screenshots/15-cloudtrail-putbucketpolicy.png)
+
+**S3 access log showing unauthorized GET request**
+![S3 Access Logs](screenshots/16-s3-access-logs.png)
+
+**Bucket fully remediated — Block Public Access ON**
+![S3 Remediated](screenshots/17-s3-remediated.png)
+
+**AccessDenied confirmed in incognito browser after remediation**
+![Access Denied After Remediation](screenshots/18-access-denied-after-remediation.png)
+
+**Account-level Block Public Access enabled as preventive control**
+![Account Block Public Access](screenshots/19-account-block-public-access.png)
+
+---
+
+## 🔑 Key Concepts Demonstrated
+
+- **Incident Response Lifecycle** — Detection, investigation, containment, eradication, recovery, and lessons learned
+- **CloudWatch Monitoring** — Metric alarms, SNS notifications, and dashboard analysis
+- **CloudTrail Forensics** — Identifying who did what, when, and from where during a security incident
+- **IAM Security** — Least privilege, access key management, and emergency lockout policies
+- **S3 Security** — Bucket policies, ACLs, Block Public Access, and access logging
+- **Breach Containment** — Immediate access revocation and defense-in-depth controls
+- **Preventive Controls** — Account-level configurations that prevent entire classes of incidents
+- **Security Tooling** — Writing Python automation to triage incidents at scale
+
+---
+
+## 🎯 Why This Project Matters
+
+These three incident types represent the **most common escalations handled by AWS Escalation Engineers and Cloud Security teams** in production environments today:
+
+- **EC2 performance issues** are the #1 reason customers contact AWS Support
+- **Unauthorized API access investigations** are a daily task for Security Operations Centers
+- **S3 public exposure incidents** caused breaches at Capital One ($80M fine), Twilio, Verizon, Accenture, and many others
+
+By building, breaking, and resolving each scenario hands-on, this lab demonstrates the **ability to operate confidently in real production AWS environments** under incident pressure.
+
+---
+
+## 🔗 Related Projects
+
+- [LogSentinel](https://github.com/ParmeetGill422/LogSentinel) — Python log analysis and incident report automation tool
+- [Active Directory Azure Lab](https://github.com/ParmeetGill422/Active-Directory-Azure-Lab) — Hybrid identity lab with on-prem AD synced to Microsoft Entra ID
+
+---
+
+## 👤 Author
+
+**Parmeet Gill**
+- LinkedIn: [linkedin.com/in/parmeet-gill57](https://linkedin.com/in/parmeet-gill57)
+- GitHub: [github.com/ParmeetGill422](https://github.com/ParmeetGill422)
+- Email: parmeetgill422@gmail.com
+
+---
+
+*Built as part of a cybersecurity portfolio targeting SOC Analyst, IAM Analyst, and Cloud Escalation Engineer roles.*
