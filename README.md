@@ -111,69 +111,91 @@ This demonstrates the ability to write **operational tooling** — a key skill f
 ### Incident 1 — CloudWatch Alarm Triage
 
 **Alarm configured in OK state**
-![CloudWatch Alarm OK](screenshots/01-cloudwatch-alarm-ok.png)
+![CloudWatch Alarm OK](<img width="2558" height="1212" alt="HighCPU-prod-web-server in OK" src="https://github.com/user-attachments/assets/0b54770b-66fb-42eb-b93e-9d157bfdf569" />
+)
 
 **Alarm in In-Alarm state during CPU spike**
-![CloudWatch Alarm Triggered](screenshots/02-cloudwatch-alarm-triggered.png)
+![CloudWatch Alarm Triggered](<img width="2550" height="909" alt="CPU spike graph visible" src="https://github.com/user-attachments/assets/4b5c32d3-72ac-4ab6-8d8f-21265b5e9368" />
+)
 
 **CPU spike visible on metrics graph**
-![CloudWatch Metrics Spike](screenshots/03-cloudwatch-metrics-spike.png)
+![CloudWatch Metrics Spike](<img width="2544" height="741" alt="metrics graph" src="https://github.com/user-attachments/assets/6f448ce1-7579-474e-a4d4-61040d6b7cda" />
+)
+![CloudWatch Metrics Spike](<img width="2559" height="1189" alt="metrics graph1" src="https://github.com/user-attachments/assets/897b604d-73c3-4722-960f-d984b89cdd45" />
+
 
 **EC2 Monitoring tab showing all metrics during incident**
-![EC2 Monitoring](screenshots/04-ec2-monitoring.png)
+![EC2 Monitoring](<img width="2311" height="698" alt="EC2 Monitoring tab" src="https://github.com/user-attachments/assets/2f5a57b6-d66d-4a06-933c-d55c3df85b1d" />
+)
 
 **Alarm returned to OK after resolution**
-![CloudWatch Alarm Resolved](screenshots/05-cloudwatch-alarm-resolved.png)
+![CloudWatch Alarm Resolved](<img width="2554" height="710" alt="CloudWatch alarm back in OK " src="https://github.com/user-attachments/assets/560618ee-ce62-4994-aafb-c3462300769f" />
+)
 
 ---
 
 ### Incident 2 — Unauthorized Access Investigation
 
 **Multiple Access Denied errors from temp-contractor in CloudShell**
-![CloudShell Access Denied](screenshots/06-cloudshell-access-denied.png)
+![CloudShell Access Denied](<img width="701" height="147" alt="CloudShell showing multiple Access Denied" src="https://github.com/user-attachments/assets/2e53f05c-d0b6-45a2-9659-59976b88f65e" />
+)
 
 **CloudTrail event history showing all denied API calls**
-![CloudTrail Event History](screenshots/07-cloudtrail-event-history.png)
+![CloudTrail Event History](<img width="867" height="360" alt="CloudTrail event history showing all denied API calls" src="https://github.com/user-attachments/assets/2e128be2-cbe0-47cd-8ab2-a7ed7788ce69" />
+)
 
 **CloudTrail event detail with source IP and error code**
-![CloudTrail Event Detail](screenshots/08-cloudtrail-event-detail.png)
+![CloudTrail Event Detail](<img width="2294" height="320" alt="CloudTrail event detail showing sourceIPAddress" src="https://github.com/user-attachments/assets/5f72dc13-5467-439c-8d9a-33018bf16682" />
+)
 
 **Access key deactivated as containment action**
-![Access Key Deactivated](screenshots/09-access-key-deactivated.png)
+![Access Key Deactivated](<img width="1709" height="467" alt="temp-contractor access key status changed to Inactive" src="https://github.com/user-attachments/assets/4c9df413-92d4-48f2-8fa0-d14a7c43030b" />
+)
 
 **Account locked with EmergencyLockout policy applied**
-![Emergency Lockout Applied](screenshots/10-emergency-lockout-applied.png)
+![Emergency Lockout Applied](<img width="1633" height="607" alt="temp-contractor showing both the deactivated key and EmergencyLockout policy" src="https://github.com/user-attachments/assets/0ea0c768-96f9-4279-b36c-be71835ebc81" />
+)
 
 ---
 
 ### Incident 3 — S3 Public Exposure Breach
 
 **Bucket created with Block Public Access disabled (vulnerability introduced)**
-![S3 Block Public Access Disabled](screenshots/11-s3-block-public-access-disabled.png)
+![S3 Block Public Access Disabled](<img width="1638" height="501" alt="lock Public Access disabled showing the warning" src="https://github.com/user-attachments/assets/7c6280e6-3676-49a1-9b92-13433cab6be8" />
+)
 
 **Sensitive files uploaded to bucket**
-![S3 Sensitive Files](screenshots/12-s3-sensitive-files.png)
+![S3 Sensitive Files](<img width="1637" height="557" alt="showing 3 sensitive-looking files uploaded with file sizes and dates" src="https://github.com/user-attachments/assets/e38519c1-77d4-4541-8ed7-0cd3bff18171" />
+)
 
 **Bucket showing "Publicly accessible" badge — the breach is live**
-![S3 Public Badge](screenshots/13-s3-publicly-accessible.png)
+![S3 Public Badge](<img width="1643" height="592" alt="Publicly accessible red badge " src="https://github.com/user-attachments/assets/34efafdc-c7ae-45a5-9425-3cd5fe3c7b44" />
+)
 
 **File accessed publicly via incognito browser with no credentials**
-![Public File Access](screenshots/14-public-file-access.png)
+![Public File Access](<img width="963" height="1017" alt="Browser showing the customer-database csv" src="https://github.com/user-attachments/assets/73115e51-2d53-49c3-a0d3-c5bb9207ae18" />
+)
+![Public File Access](<img width="604" height="337" alt="Screenshot 2026-04-26 163206" src="https://github.com/user-attachments/assets/8d3364d5-32d6-4049-907c-bbcaaac9f5d8" />
+
 
 **CloudTrail PutBucketPolicy event showing who made the change**
-![CloudTrail PutBucketPolicy](screenshots/15-cloudtrail-putbucketpolicy.png)
+![CloudTrail PutBucketPolicy](<img width="2294" height="322" alt="CloudTrail event detail showing PutBucketPolicy" src="https://github.com/user-attachments/assets/eb31ce82-ef4a-4c5a-aeb7-1249b2d639b7" />
+)
 
 **S3 access log showing unauthorized GET request**
-![S3 Access Logs](screenshots/16-s3-access-logs.png)
+![S3 Access Logs]()
 
 **Bucket fully remediated — Block Public Access ON**
-![S3 Remediated](screenshots/17-s3-remediated.png)
+![S3 Remediated](<img width="1656" height="495" alt="Block all public access" src="https://github.com/user-attachments/assets/752a57af-28c3-423d-bb0e-b26b39744147" />
+)
 
 **AccessDenied confirmed in incognito browser after remediation**
-![Access Denied After Remediation](screenshots/18-access-denied-after-remediation.png)
+![Access Denied After Remediation](<img width="710" height="285" alt="Incognito browser showing AccessDenied error after remediation" src="https://github.com/user-attachments/assets/e3cd8536-10e3-47c1-8f6b-7cafb33883de" />
+)
 
 **Account-level Block Public Access enabled as preventive control**
-![Account Block Public Access](screenshots/19-account-block-public-access.png)
+![Account Block Public Access](<img width="1682" height="443" alt="S3 account-level Block Public Access" src="https://github.com/user-attachments/assets/bcedea2e-e00d-4c84-80a0-0896d819816b" />
+)
 
 ---
 
